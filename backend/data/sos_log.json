@@ -1,0 +1,18 @@
+[
+  {
+    "sos_id": "SOS0001",
+    "timestamp": "2026-05-29T00:45:19.426875",
+    "location": {
+      "lat": 22.738743,
+      "lng": 88.371499
+    },
+    "map_url": "https://maps.google.com/?q=22.738743,88.371499",
+    "severity": "Minor — No visible injuries",
+    "vehicle": "🚌 Bus",
+    "people_involved": 1,
+    "note": "",
+    "contacts_alerted": 3,
+    "country": "IN",
+    "status": "Triggered"
+  }
+]
