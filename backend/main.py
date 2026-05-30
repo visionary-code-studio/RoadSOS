@@ -46,9 +46,13 @@ DATA_DIR = BASE_DIR / "data"
 DATA_DIR.mkdir(exist_ok=True)
 HAZARDS_FILE = DATA_DIR / "hazards.json"
 SOS_LOG_FILE = DATA_DIR / "sos_log.json"
-FRONTEND_HTML = BASE_DIR.parent / "RoadSOS+.html"
+FRONTEND_HTML = BASE_DIR.parent / "index.html"
 
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+
+# FCM token store (in-memory for demo; use a DB in production)
+FCM_TOKENS: list = []
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Pydantic Models
@@ -76,6 +80,11 @@ class HazardRequest(BaseModel):
     severity: str
     lat: float
     lng: float
+
+class FCMRegisterRequest(BaseModel):
+    token: str
+    country: str = "IN"
+    user_id: str = ""
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Helper: JSON file I/O
@@ -400,31 +409,88 @@ def smart_guide(message: str, country: str = "IN") -> dict:
 # ─────────────────────────────────────────────────────────────────────────────
 
 @app.get("/")
+@app.get("/index.html")
 async def serve_frontend():
     """Serve the main RoadSOS+ frontend HTML."""
     if FRONTEND_HTML.exists():
         return FileResponse(str(FRONTEND_HTML), media_type="text/html")
     raise HTTPException(status_code=404, detail="Frontend file not found")
 
+@app.get("/testimonials")
+@app.get("/testimonials.html")
+async def serve_testimonials():
+    """Serve the Testimonials HTML page."""
+    testimonials_html = BASE_DIR.parent / "testimonials.html"
+    if testimonials_html.exists():
+        return FileResponse(str(testimonials_html), media_type="text/html")
+    raise HTTPException(status_code=404, detail="Testimonials file not found")
+
+@app.get("/about")
+@app.get("/about.html")
+async def serve_about():
+    """Serve the About Us HTML page."""
+    about_html = BASE_DIR.parent / "about.html"
+    if about_html.exists():
+        return FileResponse(str(about_html), media_type="text/html")
+    raise HTTPException(status_code=404, detail="About Us file not found")
+
 # ── AI GUIDE ────────────────────────────────────────────────────────────────
 @app.post("/api/ai")
 async def ai_guide(req: AIRequest):
     """
     AI Emergency Guide endpoint.
-    - If ANTHROPIC_API_KEY is set → proxies to Claude
-    - Otherwise → smart rule-based offline emergency guide
+    Priority: Gemini 2.0 Flash → Claude → Smart offline guide
     """
-    # Try Claude if API key available
+    system_prompt = (
+        "You are RoadSOS AI, a calm and expert emergency road accident assistant powered by Gemini. "
+        "Help with: immediate accident response steps, first aid (CPR, bleeding, fractures, shock), "
+        "what to tell emergency services, safely moving injured people, road safety advice, "
+        "and emergency numbers. Be calm, clear, and concise. Use numbered steps for instructions. "
+        "End serious medical advice with the relevant emergency number. "
+        "Keep answers brief — users may be panicked. Current country: " + req.country
+    )
+
+    # ── Try Gemini 2.0 Flash first ──────────────────────────────────────────
+    if GEMINI_API_KEY:
+        try:
+            # Build Gemini contents array (multi-turn)
+            contents = []
+            for h in (req.history or [])[-16:]:
+                role = "user" if h.get("role") == "user" else "model"
+                contents.append({"role": role, "parts": [{"text": h.get("content", "")}]})
+            contents.append({"role": "user", "parts": [{"text": req.message}]})
+
+            async with httpx.AsyncClient(timeout=20.0) as client:
+                resp = await client.post(
+                    f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_API_KEY}",
+                    headers={"Content-Type": "application/json"},
+                    json={
+                        "system_instruction": {"parts": [{"text": system_prompt}]},
+                        "contents": contents,
+                        "generationConfig": {"maxOutputTokens": 800, "temperature": 0.4},
+                    },
+                )
+                data = resp.json()
+                if resp.status_code == 200:
+                    candidates = data.get("candidates", [])
+                    if candidates:
+                        parts = candidates[0].get("content", {}).get("parts", [])
+                        reply = "".join(p.get("text", "") for p in parts).strip()
+                        if reply:
+                            return {"reply": reply, "source": "gemini"}
+                elif resp.status_code == 429:
+                    # Rate limited — fall to offline guide
+                    import logging
+                    logging.getLogger("roadsos").info("Gemini rate limited (429) — using offline guide")
+                    result = smart_guide(req.message, req.country)
+                    result["source"] = "gemini_ratelimit"
+                    return result
+        except Exception as e:
+            pass  # Fall through to Claude or offline guide
+
+    # ── Try Claude if API key available ─────────────────────────────────────
     if ANTHROPIC_API_KEY:
         try:
-            system_prompt = (
-                "You are RoadSOS AI, an emergency road accident assistant. "
-                "Help with: immediate accident response steps, first aid (CPR, bleeding, "
-                "fractures, shock), what to tell emergency services, safely moving injured people, "
-                "road safety advice, emergency numbers. Be calm, clear, concise. "
-                "Use numbered steps. End serious medical advice with 'Call emergency services immediately.' "
-                "Keep answers brief for panicked users. Current country: " + req.country
-            )
             messages = []
             for h in (req.history or [])[-18:]:
                 if h.get("role") and h.get("content"):
@@ -455,7 +521,7 @@ async def ai_guide(req: AIRequest):
         except Exception:
             pass  # Fall through to offline guide
 
-    # Offline smart guide
+    # ── Offline smart guide (always works) ──────────────────────────────────
     result = smart_guide(req.message, req.country)
     return result
 
@@ -726,13 +792,29 @@ async def delete_hazard(hazard_id: str):
     write_json(HAZARDS_FILE, hazards)
     return {"success": True}
 
+# ── FCM TOKEN REGISTRATION ────────────────────────────────────────────────────
+@app.post("/api/fcm/register")
+async def fcm_register(req: FCMRegisterRequest):
+    """Register an FCM device token for push notifications."""
+    # Store token (avoid duplicates)
+    if req.token and req.token not in FCM_TOKENS:
+        FCM_TOKENS.append(req.token)
+    return {"success": True, "registered_tokens": len(FCM_TOKENS)}
+
+@app.get("/api/fcm/tokens")
+async def fcm_tokens():
+    """Get count of registered FCM tokens."""
+    return {"count": len(FCM_TOKENS)}
+
 # ── HEALTH CHECK ─────────────────────────────────────────────────────────────
 @app.get("/api/health")
 async def health():
+    ai_mode = "gemini" if GEMINI_API_KEY else ("claude" if ANTHROPIC_API_KEY else "offline_guide")
     return {
         "status": "ok",
         "app": "RoadSOS+",
-        "ai_mode": "claude" if ANTHROPIC_API_KEY else "offline_guide",
+        "ai_mode": ai_mode,
+        "fcm_tokens": len(FCM_TOKENS),
         "timestamp": datetime.now().isoformat(),
     }
 

@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+  <title>RoadSOS+ | Testimonials & Case Studies</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden
+    }
+
+    :root {
+      --red: #FF1E1E;
+      --red2: #B00000;
+      --rg: rgba(255, 30, 30, .3);
+      --amb: #FF8C00;
+      --grn: #00E676;
+      --blu: #29B6F6;
+      --pur: #7C4DFF;
+      --bg: #06060A;
+      --s1: #0F0F18;
+      --s2: #151520;
+      --s3: #1B1B28;
+      --br: rgba(255, 255, 255, .07);
+      --brr: rgba(255, 30, 30, .3);
+      --t1: #F2F2F8;
+      --t2: #8888A0;
+      --t3: #484860;
+      --mono: 'Share Tech Mono', monospace;
+      --hd: 'Barlow Condensed', sans-serif;
+      --bd: 'Rajdhani', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--t1);
+      font-family: var(--bd);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    /* scanlines */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0, 0, 0, .03) 3px, rgba(0, 0, 0, .03) 4px);
+      pointer-events: none;
+      z-index: 9000
+    }
+
+    /* ─── HEADER ──────────────────────────── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 22px;
+      background: var(--s1);
+      border-bottom: 1px solid var(--brr);
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      box-shadow: 0 0 40px rgba(255, 30, 30, .1)
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .header-logo-img {
+      width: 36px;
+      height: 36px;
+      border-radius: 7px;
+      object-fit: contain;
+      animation: lpulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes lpulse {
+      0%, 100% {
+        box-shadow: 0 0 12px var(--rg)
+      }
+      50% {
+        box-shadow: 0 0 28px rgba(255, 30, 30, .6)
+      }
+    }
+
+    .logo-title {
+      font-family: var(--hd);
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 2px
+    }
+
+    .logo-title span {
+      color: var(--red)
+    }
+
+    .logo-sub {
+      font-family: var(--mono);
+      font-size: 9px;
+      color: var(--t3);
+      letter-spacing: 2px
+    }
+
+    .hdr-r {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .login-hdr-btn {
+      font-family: var(--hd);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 5px;
+      border: 1px solid rgba(255, 30, 30, .4);
+      background: rgba(255, 30, 30, .07);
+      color: var(--red);
+      cursor: pointer;
+      transition: all .2s;
+      white-space: nowrap
+    }
+
+    .login-hdr-btn:hover {
+      background: var(--red);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(255, 30, 30, 0.45);
+    }
+
+    /* ─── WRAP ──────────────────────────── */
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 18px
+    }
+
+    /* ─── BUTTONS ──────────────────────── */
+    .btn {
+      font-family: var(--hd);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 8px 17px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: all .2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none
+    }
+
+    .btn-out {
+      background: transparent;
+      border: 1px solid var(--br);
+      color: var(--t2)
+    }
+
+    .btn-out:hover {
+      border-color: rgba(255, 255, 255, .2);
+      color: var(--t1);
+      background: var(--s2)
+    }
+
+    .btn-xs {
+      padding: 4px 9px;
+      font-size: 10px
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 3px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px
+    }
+
+    .tag-r {
+      background: rgba(255, 30, 30, .12);
+      color: #FF6060;
+      border: 1px solid rgba(255, 30, 30, .25)
+    }
+
+    .tag-g {
+      background: rgba(0, 230, 118, .1);
+      color: var(--grn);
+      border: 1px solid rgba(0, 230, 118, .22)
+    }
+
+    .tag-a {
+      background: rgba(255, 140, 0, .1);
+      color: var(--amb);
+      border: 1px solid rgba(255, 140, 0, .22)
+    }
+
+    .tag-b {
+      background: rgba(41, 182, 246, .1);
+      color: var(--blu);
+      border: 1px solid rgba(41, 182, 246, .22)
+    }
+
+    /* ─── SECTION HEADER ─────────────── */
+    .sh {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 14px
+    }
+
+    .sh-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+      background: rgba(255, 30, 30, .1);
+      border: 1px solid rgba(255, 30, 30, .2);
+      padding: 3px 9px;
+      border-radius: 3px;
+      white-space: nowrap
+    }
+
+    .sh-line {
+      flex: 1;
+      height: 1px;
+      background: var(--br)
+    }
+
+    .sh-meta {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--t3)
+    }
+
+    .about-card {
+      background: var(--s1);
+      border: 1px solid var(--br);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .about-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--red), var(--pur), transparent)
+    }
+
+    .about-title {
+      font-family: var(--hd);
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: 1px
+    }
+
+    .about-desc {
+      font-size: 14px;
+      color: var(--t2);
+      line-height: 1.68;
+      margin-bottom: 14px
+    }
+
+    /* ─── DETAILED TESTIMONIALS & ABOUT PAGES ─────────── */
+    .tst-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px
+    }
+
+    .tst-detail-card {
+      background: var(--s1);
+      border: 1px solid var(--br);
+      border-radius: 12px;
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.22s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      gap: 12px
+    }
+
+    .tst-detail-card:hover {
+      border-color: rgba(255, 30, 30, 0.25);
+      background: var(--s2);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .45);
+    }
+
+    .tst-detail-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--sc, var(--red)), transparent)
+    }
+
+    .tst-header-row {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .tst-avatar-ico {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--s3);
+      border: 1px solid var(--br);
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      flex-shrink: 0
+    }
+
+    .tst-user-name {
+      font-family: var(--hd);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--t1);
+      line-height: 1.2
+    }
+
+    .tst-user-rel {
+      font-family: var(--mono);
+      font-size: 9px;
+      color: var(--t3);
+      letter-spacing: 1px;
+      text-transform: uppercase
+    }
+
+    .tst-metadata {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--br);
+      padding-bottom: 8px;
+      margin-bottom: 4px
+    }
+
+    .tst-badge-role {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px
+    }
+
+    .tst-loc-time {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--t3)
+    }
+
+    .tst-stars {
+      color: #FFC107;
+      font-size: 12px;
+      letter-spacing: 1px
+    }
+
+    .tst-body-text {
+      font-size: 14px;
+      color: var(--t2);
+      line-height: 1.55;
+      flex: 1
+    }
+
+    .tst-act-btn {
+      margin-top: 6px;
+      width: 100%;
+      justify-content: center;
+      font-size: 11px !important;
+      padding: 6px 12px !important
+    }
+
+    .tst-logs-box {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px dashed var(--br);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--t3);
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      animation: modin 0.2s ease
+    }
+
+    .tst-logs-box.show {
+      display: flex
+    }
+
+    .tst-log-item {
+      display: flex;
+      justify-content: space-between
+    }
+
+    .tst-log-msg {
+      color: var(--t2)
+    }
+
+    @keyframes modin {
+      from {
+        transform: scale(.95);
+        opacity: 0
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1
+      }
+    }
+
+    .filter-bar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 18px;
+      overflow-x: auto;
+      padding-bottom: 4px
+    }
+
+    .filter-bar::-webkit-scrollbar {
+      height: 3px
+    }
+
+    .filter-bar::-webkit-scrollbar-thumb {
+      background: var(--br)
+    }
+
+    .filter-btn {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border-radius: 5px;
+      border: 1px solid var(--br);
+      background: transparent;
+      color: var(--t3);
+      cursor: pointer;
+      transition: all .18s;
+      white-space: nowrap
+    }
+
+    .filter-btn:hover {
+      border-color: rgba(255, 255, 255, .15);
+      color: var(--t2)
+    }
+
+    .filter-btn.active {
+      background: rgba(255, 30, 30, .08);
+      border-color: rgba(255, 30, 30, .25);
+      color: var(--red)
+    }
+
+    /* ─── APP FOOTER ──────────────────────────────────── */
+    footer.app-footer {
+      background: var(--s1);
+      border-top: 1px solid var(--br);
+      padding: 16px 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      margin-top: 40px;
+    }
+
+    .footer-powered {
+      font-family: var(--hd);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--t2);
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .footer-powered .f-sep {
+      width: 1px;
+      height: 13px;
+      background: var(--br);
+      display: inline-block;
+      vertical-align: middle
+    }
+
+    .footer-licensed {
+      font-family: var(--mono);
+      font-size: 9px;
+      color: var(--t3);
+      letter-spacing: 1.5px;
+      text-align: center;
+      text-transform: uppercase
+    }
+
+    /* Toasts */
+    .toast-stack {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      z-index: 9500;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      align-items: flex-end
+    }
+
+    .tst {
+      background: var(--s2);
+      border: 1px solid var(--br);
+      border-radius: 9px;
+      padding: 10px 16px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--t1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, .5);
+      transform: translateX(140px);
+      opacity: 0;
+      transition: all .3s ease;
+      max-width: 300px;
+      pointer-events: none;
+      letter-spacing: .3px
+    }
+
+    .tst.in {
+      transform: translateX(0);
+      opacity: 1
+    }
+
+    .tst.success {
+      border-color: rgba(0, 230, 118, .32);
+      color: var(--grn)
+    }
+
+    .tst.error {
+      border-color: rgba(255, 30, 30, .32);
+      color: #FF7070
+    }
+
+    .tst.info {
+      border-color: rgba(41, 182, 246, .32);
+      color: var(--blu)
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <img src="logo.png" class="header-logo-img" alt="RoadSOS+ Logo">
+      <div>
+        <div class="logo-title">Road<span>SOS</span>+</div>
+        <div class="logo-sub">Emergency Response Navigator</div>
+      </div>
+    </div>
+    <div class="hdr-r">
+      <button class="login-hdr-btn" onclick="goBack()">← BACK TO HOME</button>
+    </div>
+  </header>
+
+  <!-- TOASTS -->
+  <div class="toast-stack" id="ts"></div>
+
+  <!-- MAIN CONTENT -->
+  <div class="wrap">
+    <div class="sh">
+      <span class="sh-tag">DETAILED CASE STUDIES & TESTIMONIALS</span>
+      <div class="sh-line"></div>
+      <span class="sh-meta">Zero Avoidable Road Deaths Initiative</span>
+    </div>
+
+    <div class="about-card" style="margin-bottom: 20px;">
+      <div class="about-title">💬 Real Stories, Real Impact</div>
+      <div class="about-desc" style="margin-bottom: 0;">
+        Every second counts during the Golden Hour. Below are detailed, verified accounts of how RoadSOS+ connected
+        victims, bystanders, and emergency units to save lives when connectivity was low or non-existent.
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterTst('all', this)">All Stories</button>
+      <button class="filter-btn" onclick="filterTst('victim', this)">Victims</button>
+      <button class="filter-btn" onclick="filterTst('bystander', this)">Bystanders</button>
+      <button class="filter-btn" onclick="filterTst('responder', this)">Responders</button>
+      <button class="filter-btn" onclick="filterTst('driver', this)">Commercial Drivers</button>
+    </div>
+
+    <div class="tst-gallery-grid">
+      <!-- Testimonial 1 -->
+      <div class="tst-detail-card" style="--sc:#FF1E1E" data-role="victim">
+        <div class="tst-header-row">
+          <div class="tst-avatar-ico">👨‍💼</div>
+          <div>
+            <div class="tst-user-name">Arun Sharma</div>
+            <div class="tst-user-rel">IT Manager</div>
+          </div>
+        </div>
+        <div class="tst-metadata">
+          <span class="tst-badge-role tag tag-r">Victim</span>
+          <span class="tst-loc-time">NH48 Km38 · 14 Oct 2025</span>
+        </div>
+        <div class="tst-stars">⭐⭐⭐⭐⭐</div>
+        <div class="tst-body-text">
+          "My SUV collided with a guardrail on NH48 in dense fog. The glass shattered, and my leg was trapped. In a panic,
+          I hit the SOS button. In less than 15 seconds, my GPS location was broadcasted to my family and the nearest
+          trauma center. By the time I was pulled out, the ambulance was already arriving. RoadSOS+ saved my life within the golden hour."
+        </div>
+        <button class="btn btn-out btn-xs tst-act-btn" onclick="toggleTstLogs('tst-log-1')">📊 Toggle Dispatch Log</button>
+        <div class="tst-logs-box" id="tst-log-1">
+          <div class="tst-log-item"><span>14:02:10</span><span class="tst-log-msg">SOS Triggered via App</span></div>
+          <div class="tst-log-item"><span>14:02:12</span><span class="tst-log-msg">GPS Locked (Accuracy 4m)</span></div>
+          <div class="tst-log-item"><span>14:02:15</span><span class="tst-log-msg">Emergency SMS sent to 3 contacts</span></div>
+          <div class="tst-log-item"><span>14:02:22</span><span class="tst-log-msg">Hospital Emergency unit alerted</span></div>
+          <div class="tst-log-item"><span>14:08:15</span><span class="tst-log-msg">Ambulance dispatched (Trauma A)</span></div>
+          <div class="tst-log-item"><span>14:19:40</span><span class="tst-log-msg">Ambulance arrived at coordinates</span></div>
+        </div>
+      </div>
+
+      <!-- Testimonial 2 -->
+      <div class="tst-detail-card" style="--sc:#4FC3F7" data-role="bystander">
+        <div class="tst-header-row">
+          <div class="tst-avatar-ico">👩‍⚕️</div>
+          <div>
+            <div class="tst-user-name">Priya Nair</div>
+            <div class="tst-user-rel">Medical Student</div>
+          </div>
+        </div>
+        <div class="tst-metadata">
+          <span class="tst-badge-role tag tag-b">Bystander</span>
+          <span class="tst-loc-time">Pune Highway · 02 Nov 2025</span>
+        </div>
+        <div class="tst-stars">⭐⭐⭐⭐⭐</div>
+        <div class="tst-body-text">
+          "I witnessed a motorcycle skid on wet asphalt. The rider was unconscious. I didn't know CPR, but I opened
+          RoadSOS+ and asked the AI Guide. It gave me immediate, clear chest compression instructions while reverse-geocoding my exact location and calling emergency services. Having offline guidance made all the difference when cellular network was dropping."
+        </div>
+        <button class="btn btn-out btn-xs tst-act-btn" onclick="toggleTstLogs('tst-log-2')">📊 Toggle Dispatch Log</button>
+        <div class="tst-logs-box" id="tst-log-2">
+          <div class="tst-log-item"><span>16:40:02</span><span class="tst-log-msg">Bystander opened AI Emergency Guide</span></div>
+          <div class="tst-log-item"><span>16:40:15</span><span class="tst-log-msg">CPR prompt entered - Offline Model loaded</span></div>
+          <div class="tst-log-item"><span>16:40:18</span><span class="tst-log-msg">Fast reverse geocoding locked Pune Highway</span></div>
+          <div class="tst-log-item"><span>16:40:30</span><span class="tst-log-msg">Ambulance line dialed (108)</span></div>
+          <div class="tst-log-item"><span>16:41:00</span><span class="tst-log-msg">First aid instructions initiated</span></div>
+        </div>
+      </div>
+
+      <!-- Testimonial 3 -->
+      <div class="tst-detail-card" style="--sc:#7C4DFF" data-role="responder">
+        <div class="tst-header-row">
+          <div class="tst-avatar-ico">👮‍♂️</div>
+          <div>
+            <div class="tst-user-name">Officer Rajesh Kumar</div>
+            <div class="tst-user-rel">Traffic Police Officer</div>
+          </div>
+        </div>
+        <div class="tst-metadata">
+          <span class="tst-badge-role tag tag-r" style="background: rgba(124, 77, 255, 0.15); color: #B39DDB;">Responder</span>
+          <span class="tst-loc-time">Sector 5 Crossing · 28 Jan 2026</span>
+        </div>
+        <div class="tst-stars">⭐⭐⭐⭐⭐</div>
+        <div class="tst-body-text">
+          "RoadSOS+ is a game-changer for coordinates dispatch. We monitor the hazard reporting dashboard and community
+          alerts. Yesterday, a commercial truck reported an oil spill on a blind curve. Within seconds, it was pinned on
+          the live hazards map, warning hundreds of other commuters and allowing my team to deploy sand bags immediately."
+        </div>
+        <button class="btn btn-out btn-xs tst-act-btn" onclick="toggleTstLogs('tst-log-3')">📊 Toggle Dispatch Log</button>
+        <div class="tst-logs-box" id="tst-log-3">
+          <div class="tst-log-item"><span>09:12:44</span><span class="tst-log-msg">Truck driver reports Oil Spill via Hazard Tab</span></div>
+          <div class="tst-log-item"><span>09:12:46</span><span class="tst-log-msg">Oil Spill pinned on Leaflet Map (ID: hz_912)</span></div>
+          <div class="tst-log-item"><span>09:12:50</span><span class="tst-log-msg">Push notification sent to surrounding FCM tokens</span></div>
+          <div class="tst-log-item"><span>09:15:00</span><span class="tst-log-msg">Traffic Police unit arrived & secured blind curve</span></div>
+        </div>
+      </div>
+
+      <!-- Testimonial 4 -->
+      <div class="tst-detail-card" style="--sc:#00E676" data-role="driver">
+        <div class="tst-header-row">
+          <div class="tst-avatar-ico">🚛</div>
+          <div>
+            <div class="tst-user-name">Balwinder Singh</div>
+            <div class="tst-user-rel">Long-Haul Truck Driver</div>
+          </div>
+        </div>
+        <div class="tst-metadata">
+          <span class="tst-badge-role tag tag-g">Driver</span>
+          <span class="tst-loc-time">NH1 Punjab Border · 12 Feb 2026</span>
+        </div>
+        <div class="tst-stars">⭐⭐⭐⭐⭐</div>
+        <div class="tst-body-text">
+          "I drive 18-wheelers across national highways at night. In remote stretches, cell network is non-existent. When my
+          tire blew out near a dark curve, I put the app in Offline Mode. It displayed my last locked GPS, NHAI helpline
+          number (1033), and let me send a pre-formatted SMS emergency beacon to my fleet controller. Every truck driver needs this."
+        </div>
+        <button class="btn btn-out btn-xs tst-act-btn" onclick="toggleTstLogs('tst-log-4')">📊 Toggle Dispatch Log</button>
+        <div class="tst-logs-box" id="tst-log-4">
+          <div class="tst-log-item"><span>23:44:12</span><span class="tst-log-msg">Tire Blowout - Network Connectivity Lost</span></div>
+          <div class="tst-log-item"><span>23:44:18</span><span class="tst-log-msg">App switched to Offline Mode manually</span></div>
+          <div class="tst-log-item"><span>23:44:20</span><span class="tst-log-msg">Offline SMS drafted with last cached GPS coordinates</span></div>
+        </div>
+      </div>
+
+      <!-- Testimonial 5 -->
+      <div class="tst-detail-card" style="--sc:#FFA726" data-role="responder">
+        <div class="tst-header-row">
+          <div class="tst-avatar-ico">👩‍⚕️</div>
+          <div>
+            <div class="tst-user-name">Dr. Ananya Sen</div>
+            <div class="tst-user-rel">Trauma Care Coordinator</div>
+          </div>
+        </div>
+        <div class="tst-metadata">
+          <span class="tst-badge-role tag tag-a">Responder</span>
+          <span class="tst-loc-time">City Gen Hospital · 05 Mar 2026</span>
+        </div>
+        <div class="tst-stars">⭐⭐⭐⭐⭐</div>
+        <div class="tst-body-text">
+          "The biggest bottleneck in trauma care is the delay in receiving accurate patient details and coordinates. With
+          RoadSOS+ SOS broadcasts, we receive the exact GPS pin, vehicle type, number of people involved, and severity level
+          instantly. This allows us to prep the trauma bay and dispatch the right critical-care team before the patient even arrives."
+        </div>
+        <button class="btn btn-out btn-xs tst-act-btn" onclick="toggleTstLogs('tst-log-5')">📊 Toggle Dispatch Log</button>
+        <div class="tst-logs-box" id="tst-log-5">
+          <div class="tst-log-item"><span>11:20:10</span><span class="tst-log-msg">SOS Broadcast received via backend REST API</span></div>
+          <div class="tst-log-item"><span>11:20:12</span><span class="tst-log-msg">Severity flagged: HIGH (Critical patient)</span></div>
+          <div class="tst-log-item"><span>11:20:15</span><span class="tst-log-msg">Patient demographics & vehicle details parsed</span></div>
+          <div class="tst-log-item"><span>11:20:30</span><span class="tst-log-msg">Trauma Unit prep initiated - ICU beds reserved</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APP FOOTER -->
+  <footer class="app-footer">
+    <div class="footer-powered">
+      <span>⚡ Powered by Road Safety 2026</span>
+      <span class="f-sep"></span>
+      <span>🚨 RoadSOS+</span>
+    </div>
+    <div class="footer-licensed">Licensed by Ministry of Road Transport and Highways &nbsp;·&nbsp; Designed for Golden
+      Hour Emergency Response</div>
+  </footer>
+
+  <script>
+    function goBack() {
+      window.location.href = 'index.html';
+    }
+
+    function filterTst(role, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.tst-detail-card').forEach(card => {
+        if (role === 'all' || card.getAttribute('data-role') === role) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function toggleTstLogs(id) {
+      const box = document.getElementById(id);
+      if (box) {
+        box.classList.toggle('show');
+      }
+    }
+
+    function toast(msg, type) {
+      type = type || 'info';
+      const stack = document.getElementById('ts'); if (!stack) return;
+      const el = document.createElement('div'); el.className = 'tst ' + type; el.textContent = msg;
+      stack.appendChild(el);
+      requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('in')));
+      setTimeout(() => { el.classList.remove('in'); setTimeout(() => el.remove(), 320); }, 3500);
+    }
+  </script>
+</body>
+
+</html>

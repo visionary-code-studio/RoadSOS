@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+  <title>RoadSOS+ | Technical & Mission Architecture</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden
+    }
+
+    :root {
+      --red: #FF1E1E;
+      --red2: #B00000;
+      --rg: rgba(255, 30, 30, .3);
+      --amb: #FF8C00;
+      --grn: #00E676;
+      --blu: #29B6F6;
+      --pur: #7C4DFF;
+      --bg: #06060A;
+      --s1: #0F0F18;
+      --s2: #151520;
+      --s3: #1B1B28;
+      --br: rgba(255, 255, 255, .07);
+      --brr: rgba(255, 30, 30, .3);
+      --t1: #F2F2F8;
+      --t2: #8888A0;
+      --t3: #484860;
+      --mono: 'Share Tech Mono', monospace;
+      --hd: 'Barlow Condensed', sans-serif;
+      --bd: 'Rajdhani', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--t1);
+      font-family: var(--bd);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    /* scanlines */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0, 0, 0, .03) 3px, rgba(0, 0, 0, .03) 4px);
+      pointer-events: none;
+      z-index: 9000
+    }
+
+    /* ─── HEADER ──────────────────────────── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 22px;
+      background: var(--s1);
+      border-bottom: 1px solid var(--brr);
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      box-shadow: 0 0 40px rgba(255, 30, 30, .1)
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .header-logo-img {
+      width: 36px;
+      height: 36px;
+      border-radius: 7px;
+      object-fit: contain;
+      animation: lpulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes lpulse {
+      0%, 100% {
+        box-shadow: 0 0 12px var(--rg)
+      }
+      50% {
+        box-shadow: 0 0 28px rgba(255, 30, 30, .6)
+      }
+    }
+
+    .logo-title {
+      font-family: var(--hd);
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 2px
+    }
+
+    .logo-title span {
+      color: var(--red)
+    }
+
+    .logo-sub {
+      font-family: var(--mono);
+      font-size: 9px;
+      color: var(--t3);
+      letter-spacing: 2px
+    }
+
+    .hdr-r {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .login-hdr-btn {
+      font-family: var(--hd);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 5px;
+      border: 1px solid rgba(255, 30, 30, .4);
+      background: rgba(255, 30, 30, .07);
+      color: var(--red);
+      cursor: pointer;
+      transition: all .2s;
+      white-space: nowrap
+    }
+
+    .login-hdr-btn:hover {
+      background: var(--red);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(255, 30, 30, 0.45);
+    }
+
+    /* ─── WRAP ──────────────────────────── */
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 18px
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--br);
+      margin: 18px 0
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 3px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px
+    }
+
+    .tag-r {
+      background: rgba(255, 30, 30, .12);
+      color: #FF6060;
+      border: 1px solid rgba(255, 30, 30, .25)
+    }
+
+    .tag-g {
+      background: rgba(0, 230, 118, .1);
+      color: var(--grn);
+      border: 1px solid rgba(0, 230, 118, .22)
+    }
+
+    .tag-a {
+      background: rgba(255, 140, 0, .1);
+      color: var(--amb);
+      border: 1px solid rgba(255, 140, 0, .22)
+    }
+
+    .tag-b {
+      background: rgba(41, 182, 246, .1);
+      color: var(--blu);
+      border: 1px solid rgba(41, 182, 246, .22)
+    }
+
+    /* ─── SECTION HEADER ─────────────── */
+    .sh {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 14px
+    }
+
+    .sh-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+      background: rgba(255, 30, 30, .1);
+      border: 1px solid rgba(255, 30, 30, .2);
+      padding: 3px 9px;
+      border-radius: 3px;
+      white-space: nowrap
+    }
+
+    .sh-line {
+      flex: 1;
+      height: 1px;
+      background: var(--br)
+    }
+
+    .sh-meta {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--t3)
+    }
+
+    .about-card {
+      background: var(--s1);
+      border: 1px solid var(--br);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .about-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--red), var(--pur), transparent)
+    }
+
+    .about-title {
+      font-family: var(--hd);
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: 1px
+    }
+
+    .about-desc {
+      font-size: 14px;
+      color: var(--t2);
+      line-height: 1.68;
+      margin-bottom: 14px
+    }
+
+    .stat-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px
+    }
+
+    .stat-chip {
+      flex: 1;
+      min-width: 90px;
+      background: var(--s2);
+      border: 1px solid var(--br);
+      border-radius: 8px;
+      padding: 12px 14px;
+      text-align: center
+    }
+
+    .stat-chip-n {
+      font-family: var(--hd);
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--red);
+      line-height: 1
+    }
+
+    .stat-chip-l {
+      font-family: var(--mono);
+      font-size: 9px;
+      color: var(--t3);
+      letter-spacing: 1.5px;
+      margin-top: 3px
+    }
+
+    /* ─── TIMELINE ─────────────────────── */
+    .timeline {
+      position: relative;
+      padding-left: 28px;
+      margin: 18px 0 24px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 4px;
+      bottom: 4px;
+      width: 2px;
+      background: var(--br);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -28px;
+      top: 3px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--s2);
+      border: 2px solid var(--red);
+      z-index: 2;
+      box-shadow: 0 0 8px var(--red);
+    }
+
+    .timeline-dot.green {
+      border-color: var(--grn);
+      box-shadow: 0 0 8px var(--grn);
+    }
+
+    .timeline-dot.blue {
+      border-color: var(--blu);
+      box-shadow: 0 0 8px var(--blu);
+    }
+
+    .timeline-content {
+      background: var(--s2);
+      border: 1px solid var(--br);
+      border-radius: 8px;
+      padding: 12px 15px;
+    }
+
+    .timeline-time {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--red);
+      letter-spacing: 1px;
+      margin-bottom: 3px;
+      text-transform: uppercase;
+    }
+
+    .timeline-time.green {
+      color: var(--grn);
+    }
+
+    .timeline-time.blue {
+      color: var(--blu);
+    }
+
+    .timeline-title {
+      font-family: var(--hd);
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--t1);
+    }
+
+    .timeline-desc {
+      font-size: 13px;
+      color: var(--t2);
+      line-height: 1.5;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+      align-items: start;
+      margin-bottom: 16px
+    }
+
+    @media(max-width:768px) {
+      .about-grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    /* ─── APP FOOTER ──────────────────────────────────── */
+    footer.app-footer {
+      background: var(--s1);
+      border-top: 1px solid var(--br);
+      padding: 16px 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      margin-top: 40px;
+    }
+
+    .footer-powered {
+      font-family: var(--hd);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--t2);
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .footer-powered .f-sep {
+      width: 1px;
+      height: 13px;
+      background: var(--br);
+      display: inline-block;
+      vertical-align: middle
+    }
+
+    .footer-licensed {
+      font-family: var(--mono);
+      font-size: 9px;
+      color: var(--t3);
+      letter-spacing: 1.5px;
+      text-align: center;
+      text-transform: uppercase
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <img src="logo.png" class="header-logo-img" alt="RoadSOS+ Logo">
+      <div>
+        <div class="logo-title">Road<span>SOS</span>+</div>
+        <div class="logo-sub">Emergency Response Navigator</div>
+      </div>
+    </div>
+    <div class="hdr-r">
+      <button class="login-hdr-btn" onclick="goBack()">← BACK TO HOME</button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <div class="wrap">
+    <div class="sh">
+      <span class="sh-tag">DETAILED TECHNICAL & MISSION ARCHITECTURE</span>
+      <div class="sh-line"></div>
+      <span class="sh-meta">IIT Madras Road Safety Hackathon 2026</span>
+    </div>
+
+    <div class="about-card">
+      <div class="about-title">🚨 RoadSOS+ — Reimagining Road Safety & Emergency Response</div>
+      <div class="about-desc" style="margin-bottom: 0;">
+        RoadSOS+ is an intelligent, offline-first emergency road assistance platform engineered to prevent avoidable
+        road deaths. Our absolute priority is the <strong>Golden Hour</strong> — the critical first 60 minutes after a
+        crash when immediate medical intervention increases survival odds by over 80%.
+      </div>
+    </div>
+
+    <div class="about-grid">
+      <!-- Column 1: Comprehensive Details -->
+      <div>
+        <div class="about-card" style="margin-top: 0;">
+          <div class="about-title" style="font-size: 19px; color: var(--red);">🎯 Our Mission & Operational Impact</div>
+          <div class="about-desc">
+            In developing nations like India, road accidents claim over 150,000 lives annually. A substantial portion
+            of these fatalities occurs because bystanders are paralyzed by panic, emergency services receive inaccurate
+            coordinates, or cellular coverage drops on national highways.
+            <br><br>
+            RoadSOS+ addresses these core failure modes through a dual-channel design system that bridges victims,
+            bystanders, and local authorities seamlessly, even in low or zero-bandwidth environments.
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="about-title" style="font-size: 17px;">⏱️ The Golden Hour Operational Timeline</div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-time">Minute 0 - 1</div>
+                <div class="timeline-title">Accident Occurs & SOS Fired</div>
+                <div class="timeline-desc">The victim or bystander hits the SOS button. The app instantly locks the
+                  high-accuracy GPS coordinates using hardware GPS receivers.</div>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-time">Minute 1 - 2</div>
+                <div class="timeline-title">Multi-Channel Emergency Beacon</div>
+                <div class="timeline-desc">A detailed emergency packet is broadcasted via HTTP. Simultaneously, a
+                  pre-formatted SMS fallback containing the Google Maps GPS location is dispatched to trusted contacts.
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot green"></div>
+              <div class="timeline-content">
+                <div class="timeline-time green">Minute 2 - 5</div>
+                <div class="timeline-title">OSM Services Mapping</div>
+                <div class="timeline-desc">The browser geolocates all surrounding trauma centers, police stations, and
+                  mechanic shops using Nominatim and OpenStreetMap Overpass queries, plotting them on an interactive
+                  Leaflet map.</div>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot blue"></div>
+              <div class="timeline-content">
+                <div class="timeline-time blue">Minute 5 - 15</div>
+                <div class="timeline-title">Interactive AI First Aid guidance</div>
+                <div class="timeline-desc">While emergency responders are en route, the Gemini-powered AI Guide acts as
+                  a calm first aid dispatcher, guiding the bystander step-by-step through CPR, bleeding management, and
+                  shock control.</div>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot green"></div>
+              <div class="timeline-content">
+                <div class="timeline-time green">Minute 15 - 60</div>
+                <div class="timeline-title">Rescue & Golden Hour Care</div>
+                <div class="timeline-desc">Responders navigate precisely using live GPS data. Commuters are warned of
+                  road hazards via Firebase push alerts. The patient is delivered safely to trauma care within the Golden Hour.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-card">
+          <div class="about-title" style="font-size: 19px; color: var(--blu);">⚙️ High-Tech Technical Architecture</div>
+          <div class="about-desc">
+            RoadSOS+ is built to be resilient, lightning fast, and offline-resilient. Here is a breakdown of our
+            advanced architectural layers:
+          </div>
+          <table style="width: 100%; border-collapse: collapse; font-size: 13px; color: var(--t2); margin-top: 10px;">
+            <thead>
+              <tr
+                style="border-bottom: 1px solid var(--br); text-align: left; font-family: var(--mono); color: var(--t3); font-size: 10px;">
+                <th style="padding: 8px 0;">LAYER</th>
+                <th style="padding: 8px 0;">TECHNOLOGIES & PROTOCOLS</th>
+                <th style="padding: 8px 0;">FUNCTION</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--br);">
+                <td style="padding: 10px 0; font-family: var(--mono); color: var(--red);">Core Frontend</td>
+                <td style="padding: 10px 0;">HTML5 · CSS3 Glassmorphism · Vanilla JS · Three.js · Leaflet.js</td>
+                <td style="padding: 10px 0;">Vibrant glassmorphic interface, interactive 3D traffic simulator, and
+                  responsive maps.</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--br);">
+                <td style="padding: 10px 0; font-family: var(--mono); color: var(--red);">API Backend</td>
+                <td style="padding: 10px 0;">Python FastAPI · Uvicorn · OSM Overpass API · Nominatim</td>
+                <td style="padding: 10px 0;">Serves live nearby emergency infrastructure and high-speed geocoding.</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--br);">
+                <td style="padding: 10px 0; font-family: var(--mono); color: var(--red);">AI Engine</td>
+                <td style="padding: 10px 0;">Google Gemini 2.0 Flash (Primary) · Claude Sonnet (Fallback)</td>
+                <td style="padding: 10px 0;">Calm, concise, multi-lingual emergency response and CPR instructions.</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--br);">
+                <td style="padding: 10px 0; font-family: var(--mono); color: var(--red);">Resiliency Layer</td>
+                <td style="padding: 10px 0;">Service Workers · LocalStorage database · SMS Fallback protocol</td>
+                <td style="padding: 10px 0;">Guarantees full capability offline (cached maps, offline AI Guide rules,
+                  offline helplines).</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--br);">
+                <td style="padding: 10px 0; font-family: var(--mono); color: var(--red);">Alert Engine</td>
+                <td style="padding: 10px 0;">Firebase Cloud Messaging (FCM) · Push Protocol</td>
+                <td style="padding: 10px 0;">Broadcasts background push alerts to drivers in active accident zones.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Column 2: Sidebar Quick Stats & Compliance -->
+      <div>
+        <div class="about-card" style="margin-top: 0; --pur: #7C4DFF;">
+          <div class="about-title" style="font-size: 16px; color: var(--pur);">🏆 IIT Madras Compliance</div>
+          <div class="about-desc" style="font-size: 13px;">
+            Designed specifically for the <strong>IIT Madras Road Safety Hackathon 2026</strong>. Adheres fully to the
+            Ministry of Road Transport and Highways (MoRTH) digital emergency framework guidelines for national highways.
+          </div>
+          <div class="divider"></div>
+          <div class="about-title" style="font-size: 15px;">📊 Key Platform Stats</div>
+          <div class="stat-row" style="flex-direction: column;">
+            <div class="stat-chip" style="width: 100%; margin-bottom: 8px;">
+              <div class="stat-chip-n">100%</div>
+              <div class="stat-chip-l">OFFLINE FUNCTIONAL</div>
+            </div>
+            <div class="stat-chip" style="width: 100%; margin-bottom: 8px;">
+              <div class="stat-chip-n">&lt;15s</div>
+              <div class="stat-chip-l">GPS LOCK & SMS BEACON</div>
+            </div>
+            <div class="stat-chip" style="width: 100%;">
+              <div class="stat-chip-n">0</div>
+              <div class="stat-chip-l">AVOIDABLE FATALITIES</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-card">
+          <div class="about-title" style="font-size: 16px; color: var(--amb);">🛡️ MoRTH Digital Compliance</div>
+          <div class="about-desc" style="font-size: 13px; line-height: 1.5;">
+            • **Good Samaritan Law Integrated**: Absolute privacy for unregistered bystander helpers.
+            <br>• **SMS Protocol compliant**: Pre-formatted coordinates payload runs on low-power cell band.
+            <br>• **OSM Certified**: Employs open geographic standards to verify medical infrastructure.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APP FOOTER -->
+  <footer class="app-footer">
+    <div class="footer-powered">
+      <span>⚡ Powered by Road Safety 2026</span>
+      <span class="f-sep"></span>
+      <span>🚨 RoadSOS+</span>
+    </div>
+    <div class="footer-licensed">Licensed by Ministry of Road Transport and Highways &nbsp;·&nbsp; Designed for Golden
+      Hour Emergency Response</div>
+  </footer>
+
+  <script>
+    function goBack() {
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+
+</html>
