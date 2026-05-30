@@ -361,7 +361,7 @@ This project does not represent an official product of IIT Madras, the Ministry 
 
 # 📄 License
 
-This project is licensed under the MIT License.
+This project is licensed under the ROADSTACK.
 
 ---
 
