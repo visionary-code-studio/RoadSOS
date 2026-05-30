@@ -219,6 +219,7 @@ Display Emergency Services
 
 ## Technical Architecture
 
+```text
 ┌──────────────────────────────────────────────┐
 │                  Frontend                    │
 ├──────────────────────────────────────────────┤
