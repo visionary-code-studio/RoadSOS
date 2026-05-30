@@ -1,188 +1,376 @@
 # 🚑 RoadSOS+
 
-### **Intelligent Emergency Road Assistance & Rescue Platform**
-*IIT Madras Road Safety Hackathon — Project Submission*
+<div align="center">
+
+<img src="https://placehold.co/1400x400/0f172a/ffffff?text=RoadSOS%2B+%7C+Emergency+Road+Assistance+Platform" alt="RoadSOS+ Banner"/>
+
+<br/>
+
+![GitHub Repo stars](https://img.shields.io/github/stars/your-username/roadsos-plus?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/your-username/roadsos-plus?style=for-the-badge)
+![GitHub issues](https://img.shields.io/github/issues/your-username/roadsos-plus?style=for-the-badge)
+![GitHub License](https://img.shields.io/github/license/your-username/roadsos-plus?style=for-the-badge)
+
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react)
+![Next JS](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js)
+![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase)
+![Google Maps](https://img.shields.io/badge/Google_Maps-4285F4?style=for-the-badge&logo=googlemaps)
+
+![Status](https://img.shields.io/badge/Status-Prototype-success?style=for-the-badge)
+![Hackathon](https://img.shields.io/badge/IITM%20Road%20Safety%20Hackathon-2026-orange?style=for-the-badge)
+![Offline Ready](https://img.shields.io/badge/Offline-Ready-green?style=for-the-badge)
+
+### 🚨 Intelligent Emergency Road Assistance & Rescue Platform
+
+**Helping accident victims find emergency services within seconds during the critical Golden Hour.**
+
+[🌐 Live Demo](#) • [📖 Documentation](#) • [🚀 Features](#-key-features) • [🛣️ Roadmap](#-roadmap)
+
+</div>
 
 ---
 
-## ✨ Overview
+# 📌 Overview
 
-**RoadSOS+** is an advanced, location-aware emergency assistance and rescue coordination web application designed to save lives during the critical **"Golden Hour"** following road accidents. It helps victims, bystanders, and responders instantly locate and contact nearby essential rescue services, trigger emergency alerts, and receive immediate life-saving medical guidance—even in areas with low network connectivity or complete offline conditions.
+RoadSOS+ is a location-aware emergency road assistance platform designed to help accident victims, bystanders, and emergency responders quickly locate and contact nearby:
 
-This repository contains:
-1. **Interactive Frontend Dashboard (`index.html` / `RoadSOS+.html`)**: A responsive UI utilizing advanced CSS/JS, modern animations, real-time geolocation, and Leaflet.js-based OSM mapping.
-2. **FastAPI Backend Services (`backend/`)**: A high-performance Python-based server implementing OSM Overpass discovery, geocoding, persistent SOS logging, custom road hazard reporting, and emergency AI triage.
+- 🏥 Trauma Centres
+- 🚑 Ambulance Services
+- 🚓 Police Stations
+- 🚒 Fire Stations
+- 🛠️ Mechanics
+- 🚚 Towing Services
+- 📞 Emergency Helplines
+- 👨‍👩‍👧 Emergency Contacts
 
----
-
-## 🎯 Key Hackathon Requirements Met
-
-| Core Requirement | RoadSOS+ Feature |
-| :--- | :--- |
-| **Trauma Centres & Hospitals** | Fully integrated using high-accuracy OSM Overpass API to query nearby emergency medical clinics. |
-| **Ambulance Services** | Actionable dialers for local ambulance services and nearby medical providers. |
-| **Police Stations** | Direct location queries for nearest local police, highway patrol, and fire stations. |
-| **Vehicle Rescue & Towing** | Integrated recovery services including towing support, car mechanics, and puncture repair. |
-| **Offline Functionality** | Local-first design: cached state, country-level emergency helpline databases, SMS simulation fallbacks, and local rules-based AI medical triage. |
-| **Global Applicability** | Auto-detects user country (ISO 3166) using lat/lng geocoding to dynamically configure national emergency helpline numbers (supporting over 30 countries globally). |
-| **Additional Innovation** | Simulated visual/audio alarm system, interactive custom hazard reporter (to flag potholes/accidents), and interactive SOS console. |
+The platform aims to reduce emergency response time during road accidents by providing instant access to critical rescue information, even in low-network or offline environments.
 
 ---
 
-## 🚀 Key Features
+# 🎯 Problem Statement
 
-### 📍 1. Dynamic Geolocation & OSM Mapping
-- Automatically resolves GPS coordinates to retrieve physical addresses via reverse geocoding.
-- Dynamically queries nearby hospitals, police stations, towing services, and mechanics within a custom radius.
-- Plots results on an interactive map showing physical routes, distances, and contact details.
+Road accidents often lead to confusion, panic, and delays in locating emergency services.
 
-### 📶 2. Smart Offline Emergency Fallback
-- **Offline Triage**: The built-in AI Guide features a client-side and server-side rules-based emergency responder that provides immediate first-aid advice (for CPR, fractures, heavy bleeding, burns, etc.) when the LLM API is unavailable.
-- **Helpline Database**: Embedded database of emergency numbers (Police, Ambulance, Fire) for over 30 countries.
-- **SMS Simulation**: One-click SOS dispatch that simulates SMS alerts with precise coordinates when internet connectivity is down.
+Victims and bystanders face challenges such as:
 
-### 🤖 3. AI First-Aid & Emergency Assistant
-- Conversational chat interface specifically tuned for emergency first-aid instruction.
-- Dual-mode operation:
-  - **Online Mode**: Integrates with LLMs for nuanced, conversational answers.
-  - **Offline Fallback Mode**: Instantly switches to high-speed, local rule-based classification to guarantee instant, medically accurate instructions without any network latency.
+- Difficulty finding nearby trauma centres
+- Lack of ambulance contact information
+- Delayed police communication
+- Poor internet connectivity
+- Fragmented emergency resources
 
-### ⚠️ 4. Road Safety & Hazard Crowdsourcing
-- Users can flag new road hazards (potholes, severe waterlogging, recent accidents, structural damage) in real time.
-- The reported hazards are instantly cataloged, saved in a backend database (`hazards.json`), and visually plotted as warning markers on the map for all passing vehicles.
+These delays can significantly impact the **Golden Hour**, the critical period immediately following an accident.
 
 ---
 
-## 👤 User Personas
+# 💡 Solution
 
-### 1. Accident Victim
-A driver or passenger involved in an accident who needs immediate help and first-aid triage guidance under stressful conditions.
+RoadSOS+ provides a centralized emergency response platform that enables users to:
 
-### 2. Bystander / Helper
-A citizen responder assisting the victim and trying to contact emergency services and discover nearby trauma centers quickly.
+✅ Discover nearby emergency services instantly
 
-### 3. Frequent Road User
-Daily commuters, delivery riders, cab drivers, or long-distance travelers who need roadside rescue support, breakdown assistance, and towing.
+✅ Trigger SOS alerts
 
-### 4. Emergency Responder
-Ambulance operators, highway patrols, volunteers, or rescue teams who need quick access to accident locations and structural hazard reports.
+✅ Share live location
 
----
+✅ Access emergency contacts
 
-## 🎯 Product Objectives & Success Metrics
+✅ Use offline emergency support
 
-- **Reduce Emergency Response Time**: Minimize the search and coordinate dispatch times down to seconds during the "Golden Hour".
-- **Ensure Offline Reliability**: Guarantee critical emergency contacts and medical first-aid information remain accessible even in zero-signal environments.
-- **Actionable Service Discovery**: Go beyond simple mapping to provide direct one-click dial buttons, real-time route navigation links, and distance metrics.
-- **Active Crowdsourcing**: Create a safer driving ecosystem by allowing real-time hazard flagging (potholes, accidents) that instantly alerts subsequent users.
+✅ Connect with towing and rescue services
 
 ---
 
-## 📂 Project Directory Structure
+# ✨ Key Features
+
+## 🚨 SOS Emergency Mode
+
+- One-tap SOS activation
+- Live location sharing
+- Emergency contact notification
+- SMS fallback alerts
+- Quick emergency call shortcuts
+
+---
+
+## 📍 Nearby Emergency Service Finder
+
+Find nearby:
+
+- 🏥 Hospitals
+- 🚑 Ambulances
+- 🚓 Police Stations
+- 🚒 Fire Stations
+- 🚚 Tow Trucks
+- 🛠️ Mechanics
+- 🔧 Puncture Repair Shops
+
+Features:
+
+- GPS-powered discovery
+- Distance sorting
+- Map view
+- One-click navigation
+- Direct call integration
+
+---
+
+## 📴 Offline Emergency Support
+
+Designed for low-connectivity regions.
+
+Includes:
+
+- Cached emergency contacts
+- Cached service database
+- Offline maps
+- Last-known location support
+- SMS fallback mode
+
+---
+
+## 🛠️ Vehicle Rescue Assistance
+
+Roadside support services:
+
+- Towing support
+- Mechanics
+- Breakdown assistance
+- Repair workshops
+- Emergency vehicle rescue
+
+---
+
+## 🧠 Road Safety Intelligence *(Future Scope)*
+
+- Accident-prone zone alerts
+- Pothole reporting
+- Dangerous route warnings
+- Road hazard detection
+- Smart risk indicators
+
+---
+
+## 🌍 Multi-Region Scalability
+
+- Country-specific emergency numbers
+- Regional emergency databases
+- Localization support
+- Multi-language expansion
+
+---
+
+# 👥 User Personas
+
+### 🚗 Accident Victim
+
+Needs immediate help with minimal interaction.
+
+### 🙋 Bystander
+
+Needs quick access to emergency services to help victims.
+
+### 🚕 Frequent Road User
+
+Requires roadside support and emergency preparedness.
+
+### 🚑 Emergency Responder
+
+Needs rapid access to incident location and support services.
+
+---
+
+# 🏗️ System Architecture
+
+## High-Level Flow
+
+```text
+User Opens Website
+        │
+        ▼
+Allow Location Access
+        │
+        ▼
+Capture GPS Coordinates
+        │
+        ▼
+Search Nearby Services
+        │
+        ▼
+Display Emergency Services
+        │
+        ├── Call Service
+        │
+        ├── Navigate
+        │
+        ├── Share Location
+        │
+        └── Trigger SOS
+                │
+                ▼
+     Send SMS / Notify Contacts
+                │
+                ▼
+      Emergency Assistance Arrives
+```
+
+---
+
+## Technical Architecture
+
+┌──────────────────────────────────────────────┐
+│                  Frontend                    │
+├──────────────────────────────────────────────┤
+│ React.js / Next.js                           │
+│ SOS UI                                       │
+│ Emergency Finder                             │
+│ Maps Interface                               │
+│ Offline Emergency Screen                     │
+└──────────────────────────────────────────────┘
+                    │
+                    ▼
+┌──────────────────────────────────────────────┐
+│                   Backend                    │
+├──────────────────────────────────────────────┤
+│ Node.js / Express                            │
+│ REST APIs                                    │
+│ SOS Engine                                   │
+│ Notification Service                         │
+│ Location Processing                          │
+└──────────────────────────────────────────────┘
+                    │
+                    ▼
+┌──────────────────────────────────────────────┐
+│                  Database                    │
+├──────────────────────────────────────────────┤
+│ Firebase / MongoDB                           │
+│ Emergency Services                           │
+│ SOS Logs                                     │
+│ User Contacts                                │
+└──────────────────────────────────────────────┘
+                    │
+                    ▼
+┌──────────────────────────────────────────────┐
+│             External Services                │
+├──────────────────────────────────────────────┤
+│ Google Maps API                              │
+│ OpenStreetMap                                │
+│ Twilio SMS                                   │
+│ Firebase Notifications                       │
+└──────────────────────────────────────────────┘
+```
+
+---
+
+# 🛠️ Tech Stack
+
+| Category | Technology |
+|-----------|------------|
+| Frontend | React.js, Next.js |
+| Backend | Node.js, Express |
+| Database | Firebase Firestore, MongoDB |
+| Maps | Google Maps API, OpenStreetMap |
+| Authentication | Firebase Auth |
+| Notifications | Firebase Cloud Messaging |
+| Messaging | Twilio SMS |
+| Offline Storage | IndexedDB, Local Storage |
+| Deployment | Vercel, Firebase Hosting |
+
 
 ```
-RoadSOS+/
-│
-├── index.html                           # Beautiful main frontend dashboard (HTML, CSS, JS)
-├── RoadSOS+.html                        # Duplicate of index.html for compatibility
-├── README.md                            # Comprehensive project guide (this file)
-├── RoadSOS_AI_IITM_Hackathon.md         # Original hackathon project brief
-├── RoadSOS+ Product Requirement Document.pdf  # Project PRD
-├── RoadSOS+ Technical Architecture.pdf   # Technical Architecture Document
-│
-└── backend/
-    ├── main.py                          # FastAPI application containing 14 REST endpoints
-    ├── requirements.txt                 # Backend Python package requirements
-    ├── .env.example                     # Environment configuration template
-    ├── .env                             # Secret environment variables (GIT IGNORED)
-    └── data/
-        ├── hazards.json                 # Persistent storage for crowdsourced hazard alerts
-        └── sos_log.json                 # Persistent logs for simulated SOS triggers
-```
+
+
+
+
+
+
+# 🗺️ Roadmap
+
+## Phase 1 — MVP
+
+- [x] SOS Button
+- [x] Hospital Finder
+- [x] Ambulance Directory
+- [x] Police Station Finder
+- [x] Towing Services
+- [x] Offline Support
+
+## Phase 2 — Reliability
+
+- [ ] Verified Service Database
+- [ ] Better Ranking Engine
+- [ ] Contact Verification
+
+## Phase 3 — Offline Enhancement
+
+- [ ] Smart Caching
+- [ ] SMS-only Emergency Mode
+- [ ] Offline Maps
+
+## Phase 4 — Intelligence Layer
+
+- [ ] Hazard Detection
+- [ ] Pothole Alerts
+- [ ] Dangerous Zone Mapping
+
+## Phase 5 — Expansion
+
+- [ ] Multi-Country Support
+- [ ] Regional Emergency Networks
+- [ ] Multi-Language Support
 
 ---
 
-## 🛠️ Technology Stack
+# 🤝 Contributing
 
-- **Frontend**: Standard HTML5, CSS3 (Modern dark-mode glassmorphism, responsive grids, transitions), Vanilla JavaScript.
-- **Mapping**: Leaflet.js with OpenStreetMap.
-- **Backend**: Python 3.9+ with FastAPI & Uvicorn.
-- **Database**: File-based persistent JSON layers for hackathon ease-of-deployment.
+Contributions are welcome!
 
----
-
-## ⚙️ Running Locally
-
-### 1. Prerequisites
-- **Python**: Make sure Python 3.9 or higher is installed.
-- **Modern Browser**: Chrome, Edge, Safari, or Firefox.
-
-### 2. Set Up the Backend
-Navigate to the `backend` directory, install the required packages, and start the server:
-
-```bash
-# Go to backend directory
-cd backend
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Start the FastAPI server
-python -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-```
-
-The backend server will spin up on `http://localhost:8000`. You can explore the interactive API documentation at `http://localhost:8000/docs`.
-
-### 3. Set Up the Environment (Optional)
-A `.env.example` file is provided in the `backend/` directory. If you want to enable online LLM features for the AI Assistant, you can create a `.env` file in the `backend/` directory:
-
-```bash
-ANTHROPIC_API_KEY=your_key_here
-```
-*Note: If no API key is specified, the application seamlessly and gracefully falls back to the **local rules-based Emergency Guide**.*
-
-### 4. Launch the Frontend
-Simply open `index.html` directly in your browser, or serve it using any local static web server (such as VS Code Live Server or python's `http.server`):
-
-```bash
-# From the project root
-python -m http.server 3000
-```
-Then visit `http://localhost:3000` in your web browser.
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push your branch
+5. Open a Pull Request
 
 ---
 
-## 🚑 How to Test the Hackathon Prototype
+# 🙏 Acknowledgements
 
-1. **Start the Frontend & Backend**: Ensure both are running.
-2. **Grant Location Access**: Click "Allow Location" on your browser. The app will auto-detect your location and pull local emergency numbers (e.g., `112` / `100` / `102` for India).
-3. **Simulate Offline Mode**: Check the "Simulate Offline Mode" toggle at the top of the interface. Watch the UI immediately adapt to local fallbacks.
-4. **Trigger SOS**: Click the pulsing red **SOS Emergency Alert** button. Input severity details, then click "Simulate Dispatch". Watch the live mock console log SMS transmissions, trigger local audio alarm warnings, and write to `backend/data/sos_log.json`.
-5. **Search Services**: Search for nearby "Hospitals", "Police", or "Towing". The dynamic card display will populate with distances, contact links, and map markers.
-6. **Ask the AI Assistant**: Try typing *"How to do CPR?"* or *"What to do for a bleeding head wound?"* into the AI Chatbot to see instantaneous triage answers.
-7. **Report a Hazard**: Scroll to the "Road Safety Reporter" panel, select "Pothole" or "Accident", add a description, and report. You will see it register instantly on the map!
+This project is developed as part of the:
 
----
+### 🏆 IIT Madras Road Safety Hackathon 2026
 
-## 🗺️ Roadmap & Future Scope
+We sincerely thank:
 
-### Phase 1 — MVP (Completed)
-- Geolocation & dynamic Overpass API search integration.
-- Offline status simulation, helpline database, and local chatbot rules engine.
-- Persistent hazard reporting and simulated SOS console.
+- 🏛️ **Indian Institute of Technology Madras (IIT Madras)**
+- 🚦 **Ministry of Road Transport and Highways (MoRTH), Government of India**
+- 🚗 Road Safety Innovation Ecosystem
+- 👨‍💻 Hackathon Organizers, Mentors, and Reviewers
 
-### Phase 2 — Production Reliability
-- Verified emergency contact database syncing from government registries.
-- Advanced routing routing algorithms optimized for sirens & ambulances.
-- Automatic local DB replication to offline-ready Service Workers.
-
-### Phase 3 — Active Road Safety Intelligence
-- Computer vision pothole and damage detection using mobile dashcams.
-- Real-time auditory warning alerts when entering high-accident zones.
-- Embedded CAN-bus vehicle health anomaly detection (engine heat, brake pad wear).
+for providing a platform to build impactful solutions that improve road safety and emergency response systems.
 
 ---
 
-## 🙏 Acknowledgments
-- **IIT Madras Road Safety Hackathon** for the inspiring and critical theme.
-- **OpenStreetMap** and the open GIS ecosystem for democratizing geographical search data.
+# 📜 Disclaimer
+
+RoadSOS+ is currently a prototype developed for educational and hackathon purposes.
+
+This project does not represent an official product of IIT Madras, the Ministry of Road Transport and Highways, or any government agency.
+
+---
+
+# 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+<div align="center">
+
+### 🚑 Every Second Matters. Every Life Matters.
+
+**RoadSOS+ — Faster Help. Safer Roads. Smarter Response.**
+
+⭐ Star this repository if you support safer roads and smarter emergency response systems.
+
+</div>
